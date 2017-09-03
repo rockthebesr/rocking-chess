@@ -10,6 +10,10 @@ var port = process.env.PORT || 3000;
  */
 app.set('port', port);
 app.use(express.static(__dirname + '/public'));
+//load images
+app.use('/img/chesspieces/wikipedia', express.static(__dirname + '/public/libs/chessboardjs-0.3.0/img/chesspieces/wikipedia'))
+
+//load views
 app.use(express.static(__dirname + '/public/views'));
 
 /**
