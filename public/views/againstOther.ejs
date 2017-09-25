@@ -16,12 +16,21 @@
 
     <!-- <div id="board" class="board"></div>
     <div id="move-history" class="move-history"> -->
-<div>Your room id is : </div>
-        <div id="roomId"></div>
-
+    <div>Your room id is : </div>
+    <div id="roomId"></div>
+    <div id="roomCount"></div>
+    <div id="type"></div>
     <div id="time"></div>
+
+
+    <div id="board" class="board"></div>
+
+    <div id="move-history" class="move-history"></div>
 </body>
 
+<script type='text/javascript'>
+    var roomId = <%- JSON.stringify(roomId) %>;
+</script>
 <script src="../libs/jquery-3.2.1/jquery-3.2.1.min.js"></script>
 <script src="../libs/chess.js-master/chess.min.js"></script>
 <script src="../libs/chessboardjs-0.3.0/js/chessboard-0.3.0.js"></script>
