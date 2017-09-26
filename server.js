@@ -36,7 +36,7 @@ app.get('/ai', function (req, res) {
 
 app.get('/room', function (req, res) {
     var roomId = Math.floor(Math.random() * 99999);
-    res.redirect('/room/' + roomId);
+    res.redirect('/' + roomId);
 })
 app.get('/:roomId', function (req, res) {
     res.render(__dirname + '/public/views/againstOther', {
@@ -63,7 +63,7 @@ io.on('connection', function (socket) {
             type = 0;
             roomCounts[roomId] = 1;
         } else if (roomCounts[roomId] == 2) {
-            io.to(roomId).emit("rejected", "Room already has 2 players!");
+            io.to(socket.id).emit("rejected", __dirname);
         } else {
             socket.join(roomId);
             type = 1;

@@ -1,18 +1,19 @@
 var socket = io();
 var color;
 socket.emit('askToJoin', roomId);
-socket.on("rejected", function (msg) {
-    alert(msg);
+socket.on("rejected", function (url) {
+    alert("Oops, there are already 2 playesr in the room!");
+    window.location.href = "/";
 });
 
 socket.on('confirmJoin', function (data) {
     $('#roomId').text(data.roomId);
     if (data.type == 0) {
         color = "w";
-        $("#type").text("You are playing white" );
+        $("#type").text("You are playing white");
     } else {
         color = "b";
-        $("#type").text("You are playing black" );
+        $("#type").text("You are playing black");
     }
 });
 
@@ -28,7 +29,7 @@ var board,
 /* board visualization and games state handling */
 
 var onDragStart = function (source, piece, position, orientation) {
-    var currentColor = piece? piece[0]: "";
+    var currentColor = piece ? piece[0] : "";
     if (currentColor != color) {
         return;
     }
@@ -50,7 +51,7 @@ var renderMoveHistory = function (moves) {
 
 var onDrop = function (source, target, piece) {
 
-    var currentColor = piece? piece[0]: "";
+    var currentColor = piece ? piece[0] : "";
     if (currentColor != color) {
         return;
     }
@@ -67,7 +68,11 @@ var onDrop = function (source, target, piece) {
     }
 
     renderMoveHistory(game.history());
-    socket.emit("move", {color: color, source: source, target: target});
+    socket.emit("move", {
+        color: color,
+        source: source,
+        target: target
+    });
 };
 
 var onSnapEnd = function () {
@@ -75,7 +80,7 @@ var onSnapEnd = function () {
 };
 
 var onMouseoverSquare = function (square, piece) {
-    var currentColor = piece? piece[0]: "";
+    var currentColor = piece ? piece[0] : "";
     if (currentColor != color) {
         return;
     }
@@ -123,7 +128,7 @@ var cfg = {
 };
 board = ChessBoard('board', cfg);
 
-socket.on("move", function(data){
+socket.on("move", function (data) {
     var currentColor = data.color[0];
     if (currentColor == color) return;
     var move = game.move({
