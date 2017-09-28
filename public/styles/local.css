@@ -1,4 +1,13 @@
 #board {
     width: 500px;
-    margin: auto;
+    float: right;
+}
+.move-history {
+    border: 1px solid grey;
+}
+@media screen and (max-width: 480px) {
+    #board {
+        width: 400px;
+        float: right;
+    }
 }
